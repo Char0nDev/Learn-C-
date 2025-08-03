@@ -2,37 +2,76 @@
 #include <stdlib.h>
 #include <time.h>
 
+int getComputerChoice()
+{
+    srand(time(NULL));
+
+    int min = 1;
+    int max = 3;
+
+    return (rand() % (max - min + 1)) + 1;
+}
+
+void checkWinner(int userChoice, int computerChoice);
+
 int main()
 {
+    printf("*** ROCK PAPER SCISSORS ***\n");
 
-    srand(time(NULL));
-    int min = 1;
-    int max = 100;
-    int guess = 0;
-    int tries = 0;
-    int answer = (rand() % (max - min + 1)) + min;
-     
-    printf("*** NUMBER GUESSING GAME ***\n");
-    
+    int userChoice = 0;
+    int computerChoice = getComputerChoice();
+
     do
     {
-        printf("guess a number between %d - %d: ", min , max);
-        scanf("%d", &guess);
-        tries++;
+        printf("Choose an option\n");
+        printf("1. Paper\n2. Rock\n3. Scissors\n");
+        printf("Enter your choice: ");
+        scanf("%d", &userChoice);
+    } while (userChoice > 3 || userChoice < 1);
 
-        if(guess > answer) {
-            printf("TOO LOW\n");
-        }else if(guess < answer){
-            printf("TOO HIGH\n");
-        }else{
-            printf("CORRECT!\n");
-        }
-        
-    } while (guess != answer);
+    switch (userChoice)
+    {
+    case 1:
+        printf("You chose Paper!\n");
+        break;
+    case 2:
+        printf("You chose Rock!\n");
+        break;
+    case 3:
+        printf("You chose Scissors!\n");
+        break;
+    }
 
-    printf("The answer is %d\n", answer);
-    printf("it took you %d tries\n" , tries);
-    
+    switch (computerChoice)
+    {
+    case 1:
+        printf("Computer chose Paper!\n");
+        break;
+    case 2:
+        printf("Computer chose Rock!\n");
+        break;
+    case 3:
+        printf("Computer chose Scissors!\n");
+        break;
+    }
+
+    checkWinner(userChoice, computerChoice);
 
     return 0;
+}
+
+void checkWinner(int userChoice, int computerChoice)
+{
+    if (userChoice == computerChoice)
+    {
+        printf("It's a TIE!\n");
+    }
+    else if ((userChoice == 1 && computerChoice == 2) || (userChoice == 2 && computerChoice == 3) || (userChoice == 3 && computerChoice == 1))
+    {
+        printf("You WIN!\n");
+    }
+    else
+    {
+        printf("YOU LOSE!\n");
+    }
 }
